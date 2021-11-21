@@ -3,20 +3,18 @@ import java.util.Scanner;
 public class LakesideLuxury {
 
     public static void main(String[] args) {
-
-        Rental[] rentals = new Rental[3];
-
+        
         promptCust();
-
+        
         displayBanner();
 
     }
 
-    public static Rental promptCust() {
-        int x;
+    public static void promptCust() {
         Scanner inputObj = new Scanner(System.in);
+        Rental[] rentals = new Rental[3];
 
-        for (x = 0; x < rentals.length; ++x) {
+        for (int x = 0; x < rentals.length; ++x) {
             System.out.println("Enter information for Rental " + (x + 1));
 
             System.out.print("Enter customer ID >> ");
@@ -38,9 +36,11 @@ public class LakesideLuxury {
     }
 
     public static void displayBanner() {
-        System.out.println("***********************************************" + "\n" + "*"
-                + "    Lakeside Luxury, Life with No Worries    " + "*" + "\n"
-                + "***********************************************");
+        System.out.println(
+            "***********************************************" + "\n" + "*" +
+            "    Lakeside Luxury, Life with No Worries    " + "*" + "\n" +
+            "***********************************************"
+        );
     }
 
 }

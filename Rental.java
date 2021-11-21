@@ -20,7 +20,7 @@ public class Rental {
         this.custEmail = custEmail;
     }
 
-    public void setCustID(int custID) {
+    public void setCustID(String custID) {
         this.custID = custID;
     }
 
