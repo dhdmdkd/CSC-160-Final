@@ -30,8 +30,7 @@ public class LakesideLuxury {
         Customer tempCust = new Customer();
 
         System.out.print("Enter customer ID >> ");
-        tempCust.setCustID(inputObj.nextInt());
-        inputObj.nextLine();
+        tempCust.setCustID(inputObj.nextLine());
 
         System.out.print("Enter customer name >> ");
         tempCust.setCustName(inputObj.nextLine());
@@ -39,11 +38,15 @@ public class LakesideLuxury {
         System.out.print("Enter customer phone number >> ");
         tempCust.setCustPhone(inputObj.nextLine());
 
-        System.out.print("Enter customer phone email address >> ");
+        System.out.print("Enter customer email address >> ");
         tempCust.setCustEmail(inputObj.nextLine());
 
         System.out.print("Enter customer mailing address >> ");
         tempCust.setCustAddress(inputObj.nextLine());
+
+        System.out.print("Enter number of minutes rented >> ");
+        tempCust.setRental();
+        
 
         return tempCust;
     }

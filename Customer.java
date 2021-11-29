@@ -3,14 +3,15 @@ public class Customer {
     private String custAddress;
     private String custPhone;
     private String custEmail;
-    private int custID;
-    // private Rental rental = new Rental();
+    private String custID;
+    private Rental rental = new Rental();
+    
 
     public void setCustID(int custID) {
         this.custID = custID;
     }
 
-    public int getCustID() {
+    public String getCustID() {
         return custID;
     }
 
@@ -39,7 +40,6 @@ public class Customer {
     }
 
     public void setCustPhone(String custPhone) {
-        this.custPhone = custPhone;
         final int VALID_LEN = 10;
         final String INVALID_CUSTP = "0000000000";
         String cPhone = "";
@@ -51,6 +51,8 @@ public class Customer {
         }
             if(cPhone.length() != VALID_LEN)
                 cPhone = INVALID_CUSTP;
+
+        this.custPhone = cPhone;
     }
 
     public String getCustPhone() {
@@ -62,12 +64,11 @@ public class Customer {
 
     }
 
-    /* public Rental getRental() {
-        return rental;
-    }
-
     public void setRental(Rental rental) {
         this.rental = rental;
     }
-    */
+
+    public Rental getRental() {
+        return rental;
+    }
 }

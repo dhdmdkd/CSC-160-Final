@@ -4,7 +4,8 @@ public class Rental
     private String timeOut;
     private String timeIn;
     private int minutes;
-    private float totalCost;
+    private double totalCost;
+    private String date;
 
     final private String equipment[] = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
     
@@ -17,6 +18,8 @@ public class Rental
     public void setEquipmentNum(int equipmentNum) 
 
     {
+        int equipmentType;
+
         if(equipmentNum < equipment.length)
             equipmentType = equipmentNum;
         else 
@@ -29,10 +32,10 @@ public class Rental
         return equipmentNum;
     }
 
-    public String getEquipNUmString()
+    public String getEquipNumString()
 
    {
-      return equiptment[equipmentNum];
+      return equipment[equipmentNum];
    }           
 
     public void setMinutes(int minutes) 
@@ -41,9 +44,10 @@ public class Rental
         this.minutes = minutes;
 
         int hoursRented = minutes / 60;
+        double minutesOverHourCost = 0;
         if(minutes > 60) {
             int minutesOverHour = minutes - 60;
-            float minutesOverHourCost = minutesOverHour * 0.1;
+            minutesOverHourCost = minutesOverHour * 0.1;
         }
 
         if(minutes <= 60) 
@@ -79,9 +83,35 @@ public class Rental
         return timeIn;
     }
 
-    public String getTimeOut() 
-    
+    public String getTimeOut()
     {
         return timeOut;
     }
+
+    public void setDate(String date)
+    {
+        
+        final int VALID_LEN = 8;
+        final String INVALID_DATE = "00000000";
+        String rDate = "";
+        int len = date.length();
+        for(int x = 0; x < len; ++x)
+        {
+            if(Character.isDigit(date.charAt(x)))
+                rDate += date.charAt(x);
+        }
+            if (rDate.length() != VALID_LEN)
+                rDate = INVALID_DATE;
+        
+        this.date = rDate;
+    }
+
+    public String getDate()
+    {
+        date = date.substring(0,1) + "-" +
+            date.substring(1,2) + "-" +
+            date.substring(2,6);
+        return date;
+    }
+
 }
