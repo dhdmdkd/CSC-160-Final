@@ -1,22 +1,19 @@
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 public class Rental 
 {
     private int equipmentNum;
-    private String timeOut;
-    private String timeIn;
-    private int minutes;
+    private LocalTime timeOut;
+    private LocalTime timeIn;
+    private long minutes;
     private double totalCost;
     private String date;
+    DateTimeFormatter parser = DateTimeFormatter.ofPattern("h[:mm]a");
 
     final private String equipment[] = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
     
-    public Rental(int minutes)
-
-    {
-        setMinutes(minutes);
-    }
-
-    public void setEquipmentNum(int equipmentNum) 
-
+    public void setEquipmentNum(int equipmentNum)
     {
         int equipmentType;
 
@@ -38,59 +35,48 @@ public class Rental
       return equipment[equipmentNum];
    }           
 
-    public void setMinutes(int minutes) 
-    
+    // This timeIn setter takes a string input and parses
+    // that input to create a LocalTime timeIn object and
+    // store it (not working yet)
+    public void setTimeIn(String timeIn)
     {
-        this.minutes = minutes;
-
-        int hoursRented = minutes / 60;
-        double minutesOverHourCost = 0;
-        if(minutes > 60) {
-            int minutesOverHour = minutes - 60;
-            minutesOverHourCost = minutesOverHour * 0.1;
-        }
-
-        if(minutes <= 60) 
-        
-        {
-            totalCost = 30;
-        } else {
-            totalCost = 30 + minutesOverHourCost;
-        }
+        this.timeIn = LocalTime.parse(timeIn, parser);
     }
 
-    public void setTimeIn(String timeIn) 
-    
-    {
-        this.timeIn = timeIn;
-    }
-
+    // This timeOut setter takes a string input and parses
+    // that input to create a LocalTime timeOut object and
+    // store it (not working yet)
     public void setTimeOut(String timeOut) 
-    
     {
-        this.timeOut = timeOut;
+        this.timeOut = LocalTime.parse(timeOut, parser);
     }
 
-    public int getMinutes() 
-    
+    // altered this timeIn getter to convert the LocalTime
+    // object to a string for output
+    public String getTimeIn() 
+    {
+        return timeIn.toString();
+    }
+
+    // altered this timeOut getter to convert the LocalTime
+    // object to a string for output
+    public String getTimeOut()
+    {
+        return timeOut.toString();
+    }
+
+    public void setMinutes()
+    {
+        minutes = Duration.between(timeIn, timeOut).toMinutes();
+    }
+
+     public long getMinutes() 
     {
         return minutes;
     }
 
-    public String getTimeIn() 
-    
-    {
-        return timeIn;
-    }
-
-    public String getTimeOut()
-    {
-        return timeOut;
-    }
-
     public void setDate(String date)
     {
-        
         final int VALID_LEN = 8;
         final String INVALID_DATE = "00000000";
         String rDate = "";
@@ -114,4 +100,25 @@ public class Rental
         return date;
     }
 
+
+    // Created this total getter and moved the code from
+    // the set minutes method because we'll need to return
+    // both minutes and total cost for our output
+    public double getTotalCost() {
+        int hoursRented = (int) minutes / 60;
+        double minutesOverHourCost = 0;
+        if(minutes > 60) {
+            int minutesOverHour = (int) minutes - 60;
+            minutesOverHourCost = minutesOverHour * 0.1;
+        }
+
+        if(minutes <= 60) 
+        {
+            totalCost = 30;
+        } else {
+            totalCost = 30 + minutesOverHourCost;
+        }
+
+        return totalCost;
+    }
 }

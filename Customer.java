@@ -4,10 +4,8 @@ public class Customer {
     private String custPhone;
     private String custEmail;
     private String custID;
-    private Rental rental = new Rental();
     
-
-    public void setCustID(int custID) {
+    public void setCustID(String custID) {
         this.custID = custID;
     }
 
@@ -64,11 +62,4 @@ public class Customer {
 
     }
 
-    public void setRental(Rental rental) {
-        this.rental = rental;
-    }
-
-    public Rental getRental() {
-        return rental;
-    }
 }
