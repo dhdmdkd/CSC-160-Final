@@ -65,10 +65,10 @@ public class LakesideLuxury {
         System.out.print("Enter rental date (MMDDYYYY) >> ");
         tempRental.setDate(inputObj.nextLine());
 
-        System.out.print("Enter out time (H[:MM]a/p) >> ");
+        System.out.print("Enter out time (H[:MM] am/pm) >> ");
         tempRental.setTimeOut(inputObj.nextLine());
 
-        System.out.print("Enter return time (H[:MM]a/p) >> ");
+        System.out.print("Enter return time (H[:MM] am/pm) >> ");
         tempRental.setTimeIn(inputObj.nextLine());
 
         return tempRental;
@@ -94,7 +94,10 @@ public class LakesideLuxury {
 
         System.out.println("Equipment Rented: " + tempRental.getEquipNumString());
         System.out.println("Time rented: " + tempRental.getMinutes());
-        System.out.println("Total cost: " + tempRental.getTotalCost());
+        //System.out.println("Total cost: " + tempRental.getTotalCost());
+
+        System.out.println("Time out: " + tempRental.getTimeOut());
+        System.out.println("Time in: " + tempRental.getTimeIn());
     }
 
 }

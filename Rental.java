@@ -6,10 +6,9 @@ public class Rental
     private int equipmentNum;
     private LocalTime timeOut;
     private LocalTime timeIn;
-    private long minutes;
-    private double totalCost;
+    private Duration minutes;
     private String date;
-    DateTimeFormatter parser = DateTimeFormatter.ofPattern("h[:mm]a");
+    DateTimeFormatter parser = DateTimeFormatter.ofPattern("h[:mm] a");
 
     final private String equipment[] = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
     
@@ -23,17 +22,15 @@ public class Rental
             equipmentType = equipment.length - 1;
     }
 
-    public int getEquipmentNum() 
-    
+    public int getEquipmentNum()
     {
         return equipmentNum;
     }
 
     public String getEquipNumString()
-
-   {
-      return equipment[equipmentNum];
-   }           
+    {
+        return equipment[equipmentNum];
+    }           
 
     // This timeIn setter takes a string input and parses
     // that input to create a LocalTime timeIn object and
@@ -53,7 +50,7 @@ public class Rental
 
     // altered this timeIn getter to convert the LocalTime
     // object to a string for output
-    public String getTimeIn() 
+    public String getTimeIn()
     {
         return timeIn.toString();
     }
@@ -67,10 +64,10 @@ public class Rental
 
     public void setMinutes()
     {
-        minutes = Duration.between(timeIn, timeOut).toMinutes();
+        minutes = Duration.between(timeOut, timeIn);
     }
 
-     public long getMinutes() 
+     public Duration getMinutes() 
     {
         return minutes;
     }
@@ -105,14 +102,14 @@ public class Rental
     // the set minutes method because we'll need to return
     // both minutes and total cost for our output
     public double getTotalCost() {
-        int hoursRented = (int) minutes / 60;
+        double totalCost;
         double minutesOverHourCost = 0;
-        if(minutes > 60) {
-            int minutesOverHour = (int) minutes - 60;
+        if(minutes.toMinutes() > 60) {
+            int minutesOverHour = (int) minutes.toMinutes() - 60;
             minutesOverHourCost = minutesOverHour * 0.1;
         }
 
-        if(minutes <= 60) 
+        if(minutes.toMinutes() <= 60) 
         {
             totalCost = 30;
         } else {
