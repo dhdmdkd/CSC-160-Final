@@ -5,8 +5,8 @@ public class LakesideLuxury {
     public static void main(String[] args) {
 
         // Declare 3 customer and rental objects
-        Customer[] cust = new Customer[1];
-        Rental[] rental = new Rental[1];
+        Customer[] cust = new Customer[3];
+        Rental[] rental = new Rental[3];
         int x;
 
         // Loop to take input and populate data fields in objects
