@@ -6,11 +6,14 @@ public class Rental
     private int equipmentNum;
     private LocalTime timeOut;
     private LocalTime timeIn;
-    private Duration minutes;
+    private long minutes;
     private String date;
+    private String coupon;
+    private boolean couponValid = false;
+
     DateTimeFormatter parser = DateTimeFormatter.ofPattern("h[:mm] a");
 
-    final private String equipment[] = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
+    private final String[] equipment = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
     
     public void setEquipmentNum(int equipmentNum)
     {
@@ -20,12 +23,14 @@ public class Rental
             equipmentType = equipmentNum;
         else 
             equipmentType = equipment.length - 1;
-    }
 
-    public int getEquipmentNum()
-    {
-        return equipmentNum;
+        this.equipmentNum = equipmentType;
     }
+    
+    public String[] getEquipType(){
+        return equipment;
+    }
+    
 
     public String getEquipNumString()
     {
@@ -64,10 +69,11 @@ public class Rental
 
     public void setMinutes()
     {
-        minutes = Duration.between(timeOut, timeIn);
+        Duration timeBetween = Duration.between(timeOut, timeIn);
+        minutes = timeBetween.toMinutes();
     }
 
-     public Duration getMinutes() 
+    public long getMinutes() 
     {
         return minutes;
     }
@@ -97,23 +103,43 @@ public class Rental
         return date;
     }
 
+    public String getCoupon()
+    {
+        return coupon;
+    }
 
+    public void setCoupon(String coupon)
+    {
+        if(coupon.equals("10OFF")) {
+            this.coupon = coupon;
+            couponValid = true;
+        } else if(coupon.equals("")) {
+            this.coupon = "No coupon entered";
+        } else {
+            this.coupon = "INVALID";
+        }
+    }
+    
     // Created this total getter and moved the code from
     // the set minutes method because we'll need to return
     // both minutes and total cost for our output
     public double getTotalCost() {
         double totalCost;
         double minutesOverHourCost = 0;
-        if(minutes.toMinutes() > 60) {
-            int minutesOverHour = (int) minutes.toMinutes() - 60;
+        if(minutes > 60) {
+            int minutesOverHour = (int) minutes - 60;
             minutesOverHourCost = minutesOverHour * 0.1;
         }
 
-        if(minutes.toMinutes() <= 60) 
+        if(minutes <= 60) 
         {
             totalCost = 30;
         } else {
             totalCost = 30 + minutesOverHourCost;
+        }
+
+        if(couponValid) {
+            totalCost = totalCost - (totalCost * 0.1);
         }
 
         return totalCost;

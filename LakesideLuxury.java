@@ -5,8 +5,8 @@ public class LakesideLuxury {
     public static void main(String[] args) {
 
         // Declare 3 customer and rental objects
-        Customer[] cust = new Customer[3];
-        Rental[] rental = new Rental[3];
+        Customer[] cust = new Customer[1];
+        Rental[] rental = new Rental[1];
         int x;
 
         // Loop to take input and populate data fields in objects
@@ -58,19 +58,29 @@ public class LakesideLuxury {
         Scanner inputObj = new Scanner(System.in);
         Rental tempRental = new Rental();
 
+        String[] equipType = tempRental.getEquipType();
+        for(int x = 0; x < equipType.length; ++x) {
+            System.out.println((x+1) + ") " + equipType[x]);
+        }
+
         System.out.print("Enter equipment item number >> ");
-        tempRental.setEquipmentNum(inputObj.nextInt());
+        tempRental.setEquipmentNum((inputObj.nextInt() - 1));
         inputObj.nextLine();
 
         System.out.print("Enter rental date (MMDDYYYY) >> ");
         tempRental.setDate(inputObj.nextLine());
 
-        System.out.print("Enter out time (H[:MM] am/pm) >> ");
+        System.out.print("Enter out time (H[:MM] AM/PM) >> ");
         tempRental.setTimeOut(inputObj.nextLine());
 
-        System.out.print("Enter return time (H[:MM] am/pm) >> ");
+        System.out.print("Enter return time (H[:MM] AM/PM) >> ");
         tempRental.setTimeIn(inputObj.nextLine());
 
+        tempRental.setMinutes();
+
+        System.out.print("Enter coupon code if you have one, otherwise leave blank >> ");
+
+        tempRental.setCoupon(inputObj.nextLine());
         return tempRental;
     }
 
@@ -82,7 +92,6 @@ public class LakesideLuxury {
         );
     }
 
-
     // Method to start displaying output of customer object data
     // Still needs more work to display all information and formatting
     public static void displayCustInfo(Customer tempCust, Rental tempRental) {
@@ -91,13 +100,11 @@ public class LakesideLuxury {
         System.out.println("Customer Phone: " + tempCust.getCustPhone());
         System.out.println("Customer Email: " + tempCust.getCustEmail());
         System.out.println("Customer Address: " + tempCust.getCustAddress());
-
         System.out.println("Equipment Rented: " + tempRental.getEquipNumString());
-        System.out.println("Time rented: " + tempRental.getMinutes());
-        //System.out.println("Total cost: " + tempRental.getTotalCost());
-
         System.out.println("Time out: " + tempRental.getTimeOut());
         System.out.println("Time in: " + tempRental.getTimeIn());
+        System.out.println("Time rented: " + tempRental.getMinutes());
+        System.out.println("Coupon Entered: " + tempRental.getCoupon());
+        System.out.println("Total cost: " + tempRental.getTotalCost());
     }
-
 }
