@@ -7,11 +7,13 @@ public class Rental
     private LocalTime timeOut;
     private LocalTime timeIn;
     private long minutes;
-    private String date;
+    private LocalDate date;
     private String coupon;
     private boolean couponValid = false;
 
-    DateTimeFormatter parser = DateTimeFormatter.ofPattern("h[:mm] a");
+    DateTimeFormatter inParser = DateTimeFormatter.ofPattern("h[:mm] a");
+    DateTimeFormatter outParser = DateTimeFormatter.ofPattern("h:mm a");
+
 
     private final String[] equipment = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
     
@@ -42,7 +44,7 @@ public class Rental
     // store it (not working yet)
     public void setTimeIn(String timeIn)
     {
-        this.timeIn = LocalTime.parse(timeIn, parser);
+        this.timeIn = LocalTime.parse(timeIn, inParser);
     }
 
     // This timeOut setter takes a string input and parses
@@ -50,21 +52,21 @@ public class Rental
     // store it (not working yet)
     public void setTimeOut(String timeOut) 
     {
-        this.timeOut = LocalTime.parse(timeOut, parser);
+        this.timeOut = LocalTime.parse(timeOut, inParser);
     }
 
     // altered this timeIn getter to convert the LocalTime
     // object to a string for output
     public String getTimeIn()
     {
-        return timeIn.toString();
+        return timeIn.format(outParser);
     }
 
     // altered this timeOut getter to convert the LocalTime
     // object to a string for output
     public String getTimeOut()
     {
-        return timeOut.toString();
+        return timeOut.format(outParser);
     }
 
     public void setMinutes()
@@ -80,6 +82,7 @@ public class Rental
 
     public void setDate(String date)
     {
+        DateTimeFormatter dateParser = DateTimeFormatter.ofPattern("MMdduuuu");
         final int VALID_LEN = 8;
         final String INVALID_DATE = "00000000";
         String rDate = "";
@@ -92,15 +95,16 @@ public class Rental
             if (rDate.length() != VALID_LEN)
                 rDate = INVALID_DATE;
         
-        this.date = rDate;
+        this.date = LocalDate.parse(rDate, dateParser);
     }
 
     public String getDate()
     {
-        date = date.substring(0,1) + "-" +
-            date.substring(1,2) + "-" +
-            date.substring(2,6);
-        return date;
+        DateTimeFormatter dateParser = DateTimeFormatter.ofPattern("MM-dd-uuuu");
+        //date = date.substring(0,1) + "-" +
+        //   date.substring(1,2) + "-" +
+        //  date.substring(2,6);
+        return date.format(dateParser);
     }
 
     public String getCoupon()
@@ -142,6 +146,6 @@ public class Rental
             totalCost = totalCost - (totalCost * 0.1);
         }
 
-        return totalCost;
+        return Math.round(totalCost * 100) / 100.0;
     }
 }
