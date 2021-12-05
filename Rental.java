@@ -14,7 +14,6 @@ public class Rental
     DateTimeFormatter inParser = DateTimeFormatter.ofPattern("h[:mm] a");
     DateTimeFormatter outParser = DateTimeFormatter.ofPattern("h:mm a");
 
-
     private final String[] equipment = {"personal watercraft", "pontoon boat", "rowboat", "canoe", "kayak", "beach chair", "umbrella", "fishing tackle", "other"};
     
     public void setEquipmentNum(int equipmentNum)

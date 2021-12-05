@@ -4,13 +4,15 @@ public class LakesideLuxury {
 
     public static void main(String[] args) {
 
+        final int NUM_CUSTS = 3;
+
         // Declare 3 customer and rental objects
-        Customer[] cust = new Customer[3];
-        Rental[] rental = new Rental[3];
+        Customer[] cust = new Customer[NUM_CUSTS];
+        Rental[] rental = new Rental[NUM_CUSTS];
         int x;
 
         // Loop to take input and populate data fields in objects
-        for(x = 0; x < cust.length; ++x)  {
+        for(x = 0; x < NUM_CUSTS; ++x)  {
             System.out.println("Enter information for Customer " + (x + 1));
             // object in Customer and Rental arrays gets populated here
             // doing a parallel object arrays thing, instead of trying
@@ -23,7 +25,7 @@ public class LakesideLuxury {
         displayBanner();
 
         // Loop to display data from Customer object array
-        for(x = 0; x < cust.length; ++x) {
+        for(x = 0; x < NUM_CUSTS; ++x) {
             System.out.println("Information for Customer " + (x + 1));
             displayCustInfo(cust[x], rental[x]);
         }
