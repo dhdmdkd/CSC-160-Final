@@ -5,11 +5,12 @@ public class LakesideLuxury {
     public static void main(String[] args) {
 
         final int NUM_CUSTS = 3;
+        int x;
 
-        // Declare 3 customer and rental objects
+        // Declare 3 customer and rental objects via Object Arrays
         Customer[] cust = new Customer[NUM_CUSTS];
         Rental[] rental = new Rental[NUM_CUSTS];
-        int x;
+
 
         // Loop to take input and populate data fields in objects
         for(x = 0; x < NUM_CUSTS; ++x)  {
